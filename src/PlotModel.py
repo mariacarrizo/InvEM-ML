@@ -305,7 +305,7 @@ def Plot3Models_2lay(model1, model2, model3, conds, npos=20, depthmax=10, ny=50)
             y2=y1
         sigy3[i, y2:] = sigma3[i, 1]
     
-    fig, axs = plt.subplots(3,1, figsize=(6,4), constrained_layout=True)
+    fig, axs = plt.subplots(1,3, figsize=(6,3), constrained_layout=True)
     
     for i in range(len(axs)):
         ax=axs[i]
@@ -880,9 +880,10 @@ def PlotLine(model, elevation, dist, vmin=1, vmax=500):
     ax.set_ylabel('Depth [m]')
     ax.set_xlabel('Distance [m]')
     
-def PlotData(data_true):
+def PlotData(data_true, ax=None):
     
-    fig, ax = plt.subplots(3,2, sharex=True,)
+    if ax == None:
+        fig, ax = plt.subplots(3,2, sharex=True,)
 
     ax[0,0].plot(data_true[:,0]*1e3, 'b', label = 'H2 True', markersize=4)
     ax[0,0].plot(data_true[:,4]*1e3, 'g', label = 'V2 True', markersize=4)
