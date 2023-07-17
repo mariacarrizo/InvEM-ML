@@ -65,7 +65,7 @@ def PlotModelRes_3lay(res, depth):
     ax.set_ylabel('Depth [m]')
     ax.set_xlabel('Horizontal distance [m]')
 
-def PlotModelCond_2lay(sig, depth, vmin=1, vmax=1000):
+def PlotModelCond_2lay(sig, depth, depth_true, vmin=1, vmax=1000):
     # Arrays for plotting
     npos = np.shape(sig)[0]
     depthmax = 10
@@ -86,7 +86,7 @@ def PlotModelCond_2lay(sig, depth, vmin=1, vmax=1000):
     fig, ax = plt.subplots(figsize = (6,4))
     pos = ax.imshow((sigy*1000).T, cmap='viridis', interpolation='none', 
                     extent=[0,npos,10,0], norm = colors.LogNorm(vmin=vmin, vmax=vmax))
-    plt.step(np.hstack((xx, xx[-1])), np.hstack((depth[0,1],depth[:,1], depth[-2,1])), ':r')
+    plt.step(np.hstack((xx, xx[-1])), np.hstack((depth_true[0,1],depth_true[:,1], depth_true[-2,1])), ':r')
     clb = fig.colorbar(pos, shrink=0.5)
     clb.set_label('Electrical conductivity [mS/m]',  )
     ax.set_ylabel('Depth [m]')
@@ -881,44 +881,44 @@ def PlotLine(model, elevation, dist, vmin=1, vmax=500):
     ax.set_xlabel('Distance [m]')
     
 def PlotData(data_true, ax=None):
-    
-    if ax == None:
+    # Changed to match data EMforward_2lay format
+    if ax.any() == None:
         fig, ax = plt.subplots(3,2, sharex=True,)
-
+    
     ax[0,0].plot(data_true[:,0]*1e3, 'b', label = 'H2 True', markersize=4)
-    ax[0,0].plot(data_true[:,4]*1e3, 'g', label = 'V2 True', markersize=4)
-    ax[0,0].plot(data_true[:,2]*1e3, 'r', label = 'P2.1 True', markersize=4)
+    ax[0,0].plot(data_true[:,3]*1e3, 'g', label = 'V2 True', markersize=4)
+    ax[0,0].plot(data_true[:,6]*1e3, 'r', label = 'P2.1 True', markersize=4)
     ax[0,0].tick_params(labelsize=8)
     ax[0,0].set_ylabel('Q [ppt]', fontsize=8)
 
-    ax[1,0].plot(data_true[:,6]*1e3, 'b', label = 'H4 True', markersize=4)
-    ax[1,0].plot(data_true[:,10]*1e3, 'g', label = 'V4 True', markersize=4)
-    ax[1,0].plot(data_true[:,8]*1e3, 'r', label = 'P4.1 True', markersize=4)
+    ax[1,0].plot(data_true[:,1]*1e3, 'b', label = 'H4 True', markersize=4)
+    ax[1,0].plot(data_true[:,4]*1e3, 'g', label = 'V4 True', markersize=4)
+    ax[1,0].plot(data_true[:,7]*1e3, 'r', label = 'P4.1 True', markersize=4)
     ax[1,0].tick_params(labelsize=8)
     ax[1,0].set_ylabel('Q [ppt]', fontsize=8)
 
-    ax[2,0].plot(data_true[:,12]*1e3, 'b', label = 'H8 True', markersize=4)
-    ax[2,0].plot(data_true[:,16]*1e3, 'g', label = 'V8 True', markersize=4)
-    ax[2,0].plot(data_true[:,14]*1e3, 'r', label = 'P8.1 True', markersize=4)
+    ax[2,0].plot(data_true[:,2]*1e3, 'b', label = 'H8 True', markersize=4)
+    ax[2,0].plot(data_true[:,5]*1e3, 'g', label = 'V8 True', markersize=4)
+    ax[2,0].plot(data_true[:,8]*1e3, 'r', label = 'P8.1 True', markersize=4)
     ax[2,0].tick_params(labelsize=8)
     ax[2,0].set_xlabel('Horizontal distance [m]', fontsize=8)
     ax[2,0].set_ylabel('Q [ppt]', fontsize=8)
 
-    ax[0,1].plot(data_true[:,1]*1e3, 'b', label = 'H2 True', markersize=4)
-    ax[0,1].plot(data_true[:,5]*1e3, 'g', label = 'V2 True', markersize=4)
-    ax[0,1].plot(data_true[:,3]*1e3, 'r', label = 'P2.1 True', markersize=4)
+    ax[0,1].plot(data_true[:,9]*1e3, 'b', label = 'H2 True', markersize=4)
+    ax[0,1].plot(data_true[:,12]*1e3, 'g', label = 'V2 True', markersize=4)
+    ax[0,1].plot(data_true[:,15]*1e3, 'r', label = 'P2.1 True', markersize=4)
     ax[0,1].tick_params(labelsize=8)
     ax[0,1].set_ylabel('IP [ppt]', fontsize=8)
 
-    ax[1,1].plot(data_true[:,7]*1e3, 'b', label = 'H4 True', markersize=4)
-    ax[1,1].plot(data_true[:,11]*1e3, 'g', label = 'V4 True', markersize=4)
-    ax[1,1].plot(data_true[:,9]*1e3, 'r', label = 'P4.1 True', markersize=4)
+    ax[1,1].plot(data_true[:,10]*1e3, 'b', label = 'H4 True', markersize=4)
+    ax[1,1].plot(data_true[:,13]*1e3, 'g', label = 'V4 True', markersize=4)
+    ax[1,1].plot(data_true[:,16]*1e3, 'r', label = 'P4.1 True', markersize=4)
     ax[1,1].tick_params(labelsize=8)
     ax[1,1].set_ylabel('IP [ppt]', fontsize=8)
 
-    ax[2,1].plot(data_true[:,13]*1e3, 'b', label = 'H8 True', markersize=4)
-    ax[2,1].plot(data_true[:,17]*1e3, 'g', label = 'V8 True', markersize=4)
-    ax[2,1].plot(data_true[:,15]*1e3, 'r', label = 'P8.1 True', markersize=4)
+    ax[2,1].plot(data_true[:,11]*1e3, 'b', label = 'H8 True', markersize=4)
+    ax[2,1].plot(data_true[:,14]*1e3, 'g', label = 'V8 True', markersize=4)
+    ax[2,1].plot(data_true[:,17]*1e3, 'r', label = 'P8.1 True', markersize=4)
     ax[2,1].set_ylabel('IP [ppt]', fontsize=8)
     ax[2,1].set_xlabel('Horizontal distance [m]', fontsize=8)
     ax[2,1].tick_params(labelsize=8)
