@@ -126,7 +126,7 @@ def PlotModelCond_2lay_elev(sig, depth, elevation):
     
 def PlotModelCond_3lay(sig, depth, vmin=1, vmax=1000):
     npos = np.shape(sig)[0]
-    #xx = np.linspace(0,npos+1,npos+1, endpoint=False)
+    xx = np.linspace(0,npos+1,npos+1, endpoint=False)
     depthmax = 10
     ny = 101
     y = np.linspace(0, depthmax, ny)
