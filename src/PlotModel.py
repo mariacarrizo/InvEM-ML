@@ -69,7 +69,7 @@ def PlotModelCond_2lay(sig, depth, depth_true, vmin=1, vmax=1000):
     # Arrays for plotting
     npos = np.shape(sig)[0]
     depthmax = 10
-    ny = 101
+    ny = 71
     y = np.linspace(0, depthmax, ny)
     sigy = np.zeros((npos, ny))
     xx = np.linspace(0,npos+1,npos+1, endpoint=False)
@@ -91,6 +91,7 @@ def PlotModelCond_2lay(sig, depth, depth_true, vmin=1, vmax=1000):
     clb.set_label('Electrical conductivity [mS/m]',  )
     ax.set_ylabel('Depth [m]')
     ax.set_xlabel('Horizontal distance [m]')
+    return sigy
     
 def PlotModelCond_2lay_elev(sig, depth, elevation):
     # Arrays for plotting
