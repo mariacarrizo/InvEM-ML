@@ -144,7 +144,7 @@ def PlotModelCond_3lay(sig, depth, vmin=1, vmax=1000):
         while y[y2] <= depth[i,1]:
             sigy[i, y2] = sig[i, 1]
             y2 += 1
-            if y2 == 50:
+            if y2 == (ny-1):
                 break
         sigy[i, y2:] = sig[i, 2]
         
@@ -156,6 +156,7 @@ def PlotModelCond_3lay(sig, depth, vmin=1, vmax=1000):
     clb.set_label('Electrical conductivity [mS/m]',  )
     ax.set_ylabel('Depth [m]')
     ax.set_xlabel('Horizontal distance [m]')
+    return sigy
     
 def PlotModelCond_3lay_elev(sig, depth, elevation):
     npos = np.shape(sig)[0]
