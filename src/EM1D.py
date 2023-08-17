@@ -255,11 +255,11 @@ def R_PRP(z):
     return R
     
 def R_HCP(z):
-    R = 1/(np.sqrt(4 * z**2 + 1))
+    R = 1- 1/(np.sqrt(4 * z**2 + 1))
     return R
     
 def R_VCP(z):
-    R = (np.sqrt(4 * z**2 + 1) - 2*z)
+    R = 1- (np.sqrt(4 * z**2 + 1) - 2*z)
     return R 
 
 def Sigma_from_Q(Q, s, freq=9000, mu = mu_0):
