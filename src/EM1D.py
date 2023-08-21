@@ -5,6 +5,28 @@ import empymod
 import numpy as np
 from scipy.constants import mu_0
 import time
+import pygimli as pg
+
+class EMforwardOpt_3lay(pg.Modelling):
+    def __init__(self):
+        """Initialize the model."""
+        super().__init__()        
+    def response(self, x):
+        sig1 = x[0]
+        sig2 = x[1]
+        sig3 = x[2]
+        thk1 = x[3]
+        thk2 = x[4]
+        if (thk1+thk2) >= 10:
+            thk1 = 2
+            thk2 = 3
+        Z = EMforward3lay(sig1, sig2, sig3, thk1, thk2, height=0.47)                           
+        return Z               
+    def createStartModel(self, dataVals):
+        thk_ini = [2,3]
+        sig_ini = [1/20,1/20, 1/20]
+        x0 = sig_ini + thk_ini
+        return np.array(x0)
 
 def EMforward2lay(sigma1, sigma2, thicks1, offsets = np.array([2, 4, 8]), height=0, freq=9000):
     """ This function performs the forward simulation of a the measurements in a
