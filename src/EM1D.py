@@ -8,9 +8,10 @@ import time
 import pygimli as pg
 
 class EMforwardOpt_3lay(pg.Modelling):
-    def __init__(self):
+    def __init__(self, m0):
         """Initialize the model."""
-        super().__init__()        
+        super().__init__()    
+        self.m0 = m0
     def response(self, x):
         sig1 = x[0]
         sig2 = x[1]
@@ -23,8 +24,9 @@ class EMforwardOpt_3lay(pg.Modelling):
         Z = EMforward3lay(sig1, sig2, sig3, thk1, thk2, height=0.47)                           
         return Z               
     def createStartModel(self, dataVals):
-        thk_ini = [2,3]
-        sig_ini = [1/20,1/20, 1/20]
+        m0 = self.m0
+        thk_ini = [m0[3], 3]
+        sig_ini = [m0[0], 1/20, 1/20]
         x0 = sig_ini + thk_ini
         return np.array(x0)
 
