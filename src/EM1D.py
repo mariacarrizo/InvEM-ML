@@ -251,11 +251,12 @@ def GlobalSearch(Database, Data, conds, thicks, nsl=51):
     return model
 
 def ErrorSpace(Database, Data, max_error, conds, thicks, nsl=51):
+    """ Returns the models and relative error of the models in the lookup table below a max error"""
     err = []
     models_below_err = []
-    for d in range(np.shape(Database)[0]):
-        nZdiff = (Database[d] - Data) **2 / (((Database[d] + Data)/2)**2)
-        merr = (np.sqrt(np.sum(nZdiff)/len(Data)))
+    for d in range(np.shape(Database)[0]):       
+        diff = np.abs((Database[d] - Data)/Data)
+        merr = np.sum(diff)/len(Data)
         
         if merr < max_error:
             err.append(merr)
